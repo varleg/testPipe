@@ -6,70 +6,68 @@ trigger:
     - master
 pool:
   vmImage: 'ubuntu-latest'
-jobs:
-- job: plan
-  steps:
-  - bash: echo "hello"
-  - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
-    displayName: 'Install Terraform 0.13.2'
-    inputs:
-      terraformVersion: 0.13.2
-  - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-    displayName: 'Terraform : azurerm'
-    inputs:
-      backendServiceArm: 'PaaS-Sandbox-John (5ffae18c-eeb0-4706-8a03-0a823e6cccb5)'
-      backendAzureRmResourceGroupName: 'rg-perm-common-sand-john-01'
-      backendAzureRmStorageAccountName: statetfsandboxjohn01
-      backendAzureRmContainerName: tfstatesandjohn01
-      backendAzureRmKey: $(secrets.sotrageaccesskey)
-  - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-    displayName: 'Terraform : azurerm'
-    inputs:
-      command: plan
-      environmentServiceNameAzureRM: 'PaaS-Sandbox-John (5ffae18c-eeb0-4706-8a03-0a823e6cccb5)'
-      backendServiceArm: 'PaaS-Sandbox-John (5ffae18c-eeb0-4706-8a03-0a823e6cccb5)'
-      backendAzureRmResourceGroupName: 'rg-perm-common-sand-john-01'
-      backendAzureRmStorageAccountName: statetfsandboxjohn01
-      backendAzureRmContainerName: tfstatesandjohn01
-      backendAzureRmKey: $(secrets.storageaccesskey)
-- job: approve
-  steps:
-  - task: ManualIntervention@8
-    displayName: 'Manual intervention'
-    timeoutInMinutes: 60
-    continueOnError: false
-    inputs:
-      notifyUsers: 'john@skyetec.no'
-      instructions: 'Validate the plan output before apply'
-- job: apply
+stages: 
+- stage: plan
+  jobs:
+  - job: plan
+    steps:
+    - bash: echo "hello"
+    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
+      displayName: 'Install Terraform 0.13.2'
+      inputs:
+        terraformVersion: 0.13.2
+    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+      displayName: 'Terraform : azurerm'
+      inputs:
+        backendServiceArm: 'PaaS-Sandbox-John (5ffae18c-eeb0-4706-8a03-0a823e6cccb5)'
+        backendAzureRmResourceGroupName: 'rg-perm-common-sand-john-01'
+        backendAzureRmStorageAccountName: statetfsandboxjohn01
+        backendAzureRmContainerName: tfstatesandjohn01
+        backendAzureRmKey: $(secrets.sotrageaccesskey)
+    - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+      displayName: 'Terraform : azurerm'
+      inputs:
+        command: plan
+        environmentServiceNameAzureRM: 'PaaS-Sandbox-John (5ffae18c-eeb0-4706-8a03-0a823e6cccb5)'
+        backendServiceArm: 'PaaS-Sandbox-John (5ffae18c-eeb0-4706-8a03-0a823e6cccb5)'
+        backendAzureRmResourceGroupName: 'rg-perm-common-sand-john-01'
+        backendAzureRmStorageAccountName: statetfsandboxjohn01
+        backendAzureRmContainerName: tfstatesandjohn01
+        backendAzureRmKey: $(secrets.storageaccesskey)
+  - job: approve
+    steps:
+    - task: ManualIntervention@8
+      displayName: 'Manual intervention'
+      timeoutInMinutes: 60
+      continueOnError: false
+      inputs:
+        notifyUsers: 'john@skyetec.no'
+        instructions: 'Validate the plan output before apply'
+- stage: apply
+  displayName: 'Apply stage'
   dependsOn: approve
-  steps:
-  - task: TerraformInstaller@0
-    inputs:
-      command: apply
-      environmentServiceNameAzureRM: 'PaaS-Sandbox-John (5ffae18c-eeb0-4706-8a03-0a823e6cccb5)'
-      backendServiceArm: 'PaaS-Sandbox-John (5ffae18c-eeb0-4706-8a03-0a823e6cccb5)'
-      backendAzureRmResourceGroupName: 'rg-perm-common-sand-john-01'
-      backendAzureRmStorageAccountName: statetfsandboxjohn01
-      backendAzureRmContainerName: tfstatesandjohn01
-      backendAzureRmKey: $(secrets.storageaccesskey)
-    
-  
-#jobs:
-#  'CI':
-#    runs-on: ubuntu-latest
-#    env:
-#      TF_VAR_client_secret: ${{ secrets.SPTERRAFORMCICD_PROD }}
-#      TF_VAR_state_access_key: ${{ secrets.SPTERRAFORMCICD_STATE_STORAGE_ACCOUNT }}
-#      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#      AWS_DEFAULT_REGION: 'eu-west-1'
-#      TARGET: ./prod/tenant-orchestration
-#    steps:
-#      - uses: actions/checkout@master
-#      - uses: hashicorp/setup-terraform@v1
-#        with:
-#          terraform_version: 0.13.2
-#      - run: terraform init -backend-config='access_key=${{ secrets.SPTERRAFORMCICD_STATE_STORAGE_ACCOUNT }}' -backend-config=./prod/backend.hcl $TARGET
-#      - run: terraform validate $TARGET
-#      - run: terraform plan -var-file=./prod/global.tfvars $TARGET
+  jobs:
+  - job: 
+    steps:
+    - task: Bash@3
+      inputs:
+        script: 'echo test'
+
+  #jobs:
+  #  'CI':
+  #    runs-on: ubuntu-latest
+  #    env:
+  #      TF_VAR_client_secret: ${{ secrets.SPTERRAFORMCICD_PROD }}
+  #      TF_VAR_state_access_key: ${{ secrets.SPTERRAFORMCICD_STATE_STORAGE_ACCOUNT }}
+  #      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #      AWS_DEFAULT_REGION: 'eu-west-1'
+  #      TARGET: ./prod/tenant-orchestration
+  #    steps:
+  #      - uses: actions/checkout@master
+  #      - uses: hashicorp/setup-terraform@v1
+  #        with:
+  #          terraform_version: 0.13.2
+  #      - run: terraform init -backend-config='access_key=${{ secrets.SPTERRAFORMCICD_STATE_STORAGE_ACCOUNT }}' -backend-config=./prod/backend.hcl $TARGET
+  #      - run: terraform validate $TARGET
+  #      - run: terraform plan -var-file=./prod/global.tfvars $TARGET
