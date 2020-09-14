@@ -48,6 +48,7 @@ stages:
   dependsOn: plan
   jobs:
   - job: 
+    pool: Server
     steps:
     - task: Bash@3
       inputs:
