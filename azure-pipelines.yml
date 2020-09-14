@@ -30,6 +30,14 @@ steps:
     backendAzureRmStorageAccountName: statetfsandboxjohn01
     backendAzureRmContainerName: tfstatesandjohn01
     backendAzureRmKey: $(secrets.storageaccesskey)
+- task: ManualIntervention@8
+  timeoutInMinutes: 60
+  continueOnError: false
+  onTimeOut: 'reject'
+  inputs:
+    notifyUsers: 'john@skyetec.no'
+    instructions: 'Validate the plan output before apply'
+  
 #jobs:
 #  'CI':
 #    runs-on: ubuntu-latest
