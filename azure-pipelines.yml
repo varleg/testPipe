@@ -35,6 +35,7 @@ stages:
         backendAzureRmContainerName: tfstatesandjohn01
         backendAzureRmKey: $(secrets.storageaccesskey)
   - job: approve
+    pool: Server
     steps:
     - task: ManualIntervention@8
       displayName: 'Manual intervention'
@@ -48,7 +49,6 @@ stages:
   dependsOn: plan
   jobs:
   - job: 
-    pool: Server
     steps:
     - task: Bash@3
       inputs:
