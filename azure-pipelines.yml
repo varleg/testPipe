@@ -8,6 +8,7 @@ pool:
   vmImage: 'ubuntu-latest'
 stages: 
 - stage: plan
+  displayName: "Plan stage"
   jobs:
   - job: plan
     steps:
@@ -35,7 +36,7 @@ stages:
         backendAzureRmContainerName: tfstatesandjohn01
         backendAzureRmKey: $(secrets.storageaccesskey)
   - job: approve
-    pool: Server
+    pool: server
     steps:
     - task: ManualIntervention@8
       displayName: 'Manual intervention'
@@ -44,15 +45,18 @@ stages:
       inputs:
         notifyUsers: 'admjohni@neptunesoftware.onmicrosoft.com'
         instructions: 'Validate the plan output before apply'
-- stage: apply
-  displayName: 'Apply stage'
-  dependsOn: plan
-  jobs:
-  - job: 
+  - job: apply
     steps:
     - task: Bash@3
       inputs:
         script: 'echo test'
+
+#- stage: apply
+#  displayName: 'Apply stage'
+#  dependsOn: plan
+#  jobs:
+#  - job: 
+#    steps:
 
   #jobs:
   #  'CI':
