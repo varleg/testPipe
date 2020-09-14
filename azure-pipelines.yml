@@ -42,7 +42,7 @@ stages:
       timeoutInMinutes: 60
       continueOnError: false
       inputs:
-        notifyUsers: 'john@skyetec.no'
+        notifyUsers: 'admjohni@neptunesoftware.onmicrosoft.com'
         instructions: 'Validate the plan output before apply'
 - stage: apply
   displayName: 'Apply stage'
