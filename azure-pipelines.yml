@@ -43,7 +43,7 @@ stages:
       timeoutInMinutes: 60
       continueOnError: false
       inputs:
-        notifyUsers: 'admjohni@neptunesoftware.onmicrosoft.com'
+        emailRecipients: 'admjohni@neptunesoftware.onmicrosoft.com'
         instructions: 'Validate the plan output before apply'
   - job: apply
     steps:
