@@ -12,6 +12,14 @@ steps:
   displayName: 'Install Terraform 0.13.2'
   inputs:
     terraformVersion: 0.13.2
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+  displayName: 'Terraform : azurerm'
+  inputs:
+    backendServiceArm: 'PaaS-Sandbox-John (5ffae18c-eeb0-4706-8a03-0a823e6cccb5)'
+    backendAzureRmResourceGroupName: 'rg-perm-common-sand-john-01'
+    backendAzureRmStorageAccountName: statetfsandboxjohn01
+    backendAzureRmContainerName: tfstatesandjohn01
+    backendAzureRmKey: $(secrets.sotrageaccesskey)
 
 #jobs:
 #  'CI':
