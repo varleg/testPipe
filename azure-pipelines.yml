@@ -45,7 +45,7 @@ stages:
         instructions: 'Validate the plan output before apply'
 - stage: apply
   displayName: 'Apply stage'
-  dependsOn: approve
+  dependsOn: plan
   jobs:
   - job: 
     steps:
