@@ -38,7 +38,7 @@ stages:
   - job: approve
     pool: server
     steps:
-    - task: ManualIntervention@0
+    - task: ManualIntervention@8
       displayName: 'Manual validation'
       timeoutInMinutes: 60
       continueOnError: false
