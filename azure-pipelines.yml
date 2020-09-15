@@ -7,7 +7,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 variables:
-  TF_LOG: "TRACE"
+  TF_LOG: "DEBUG"
 stages: 
 - stage: plan
   displayName: "Plan stage"
@@ -36,7 +36,7 @@ stages:
         backendAzureRmStorageAccountName: statetfsandboxjohn01
         backendAzureRmContainerName: tfstatesandjohn01
         backendAzureRmKey: $(secrets.storageaccesskey)
-        arguments: -out=$(build.artifactstagingdirectory)/plan
+        arguments: -out=$(build.artifactstagingdirectory)/plan23iu4o23u
 
 #- stage: apply
 #  displayName: 'Apply stage'
