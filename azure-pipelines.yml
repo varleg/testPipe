@@ -6,8 +6,6 @@ trigger:
     - master
 pool:
   vmImage: 'ubuntu-latest'
-variables:
-  TF_LOG: "TRACE"
 stages: 
 - stage: plan
   displayName: "Plan stage"
