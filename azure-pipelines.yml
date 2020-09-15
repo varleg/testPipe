@@ -36,7 +36,7 @@ stages:
         backendAzureRmStorageAccountName: statetfsandboxjohn01
         backendAzureRmContainerName: tfstatesandjohn01
         backendAzureRmKey: $(secrets.storageaccesskey)
-        arguments: '-out=$(build.artifactstagingdirectory)/plan'
+        arguments: -out=$(build.artifactstagingdirectory)/plan
 
 #- stage: apply
 #  displayName: 'Apply stage'
