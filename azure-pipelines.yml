@@ -7,7 +7,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 variables:
-  TF_LOG: "DEBUG"
+  TF_LOG: "TRACE"
 stages: 
 - stage: plan
   displayName: "Plan stage"
@@ -35,7 +35,7 @@ stages:
         backendAzureRmResourceGroupName: 'rg-perm-common-sand-john-01'
         backendAzureRmStorageAccountName: statetfsandboxjohn01
         backendAzureRmContainerName: tfstatesandjohn01
-        backendAzureRmKey: $(secrets.storageaccesskey)
+        backendAzureRmKey: terraform.tfstate
         arguments: -out="$(build.artifactstagingdirectory)/plan23iu4o23u"
 
 #- stage: apply
