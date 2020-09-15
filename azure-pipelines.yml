@@ -39,7 +39,8 @@ stages:
     - task: CopyFiles@2
       displayName: 'Copy terraform plan to artifacts'
       inputs:
-        SourceFolder: ./plan
+        SourceFolder: './'
+        Contents: 'plan'
         TargetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
       displayName: 'Publish plan'
