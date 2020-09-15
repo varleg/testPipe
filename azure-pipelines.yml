@@ -39,6 +39,12 @@ stages:
         backendAzureRmStorageAccountName: statetfsandboxjohn01
         backendAzureRmContainerName: terraform
         backendAzureRmKey: terraform.tfstate
+    - task: CopyFiles@2
+      displayName: 'Copy terraform plan to artifact store'
+      inputs:
+        Contents: tfplan
+        TargetFolder: '$(build.artifactstagingdirectory)'
+        
 
 #- stage: apply
 #  displayName: 'Apply stage'
