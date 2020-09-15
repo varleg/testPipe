@@ -44,7 +44,10 @@ stages:
       inputs:
         Contents: tfplan
         TargetFolder: '$(build.artifactstagingdirectory)'
-        
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish plan to artifacts'
+      inputs:
+        PathToPublish: '$(build.artifactstagingdirectory)'
 
 #- stage: apply
 #  displayName: 'Apply stage'
