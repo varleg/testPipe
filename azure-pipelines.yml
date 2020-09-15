@@ -46,29 +46,3 @@ stages:
       displayName: 'Publish plan to artifacts'
       inputs:
         PathToPublish: '$(build.artifactstagingdirectory)'
-
-#- stage: apply
-#  displayName: 'Apply stage'
-#  dependsOn: plan
-#  jobs:
-#  - job: 
-#    steps:
-
-  #jobs:
-  #  'CI':
-  #    runs-on: ubuntu-latest
-  #    env:
-  #      TF_VAR_client_secret: ${{ secrets.SPTERRAFORMCICD_PROD }}
-  #      TF_VAR_state_access_key: ${{ secrets.SPTERRAFORMCICD_STATE_STORAGE_ACCOUNT }}
-  #      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #      AWS_DEFAULT_REGION: 'eu-west-1'
-  #      TARGET: ./prod/tenant-orchestration
-  #    steps:
-  #      - uses: actions/checkout@master
-  #      - uses: hashicorp/setup-terraform@v1
-  #        with:
-  #          terraform_version: 0.13.2
-  #      - run: terraform init -backend-config='access_key=${{ secrets.SPTERRAFORMCICD_STATE_STORAGE_ACCOUNT }}' -backend-config=./prod/backend.hcl $TARGET
-  #      - run: terraform validate $TARGET
-  #      - run: terraform plan -var-file=./prod/global.tfvars $TARGET
