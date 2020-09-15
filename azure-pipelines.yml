@@ -38,14 +38,15 @@ stages:
   - job: approve
     pool: server
     steps:
-    - task: ManualIntervention@8
-      displayName: 'Manual intervention'
+    - task: ManualIntervention@0
+      displayName: 'Manual validation'
       timeoutInMinutes: 60
       continueOnError: false
       inputs:
-        emailRecipients: 'admjohni@neptunesoftware.onmicrosoft.com'
+        emailRecipients: '[503fc8f8-b927-6cee-a0d1-4a6e53ed5fab]'
         instructions: 'Validate the plan output before apply'
   - job: apply
+    dependsOn: approve
     steps:
     - task: Bash@3
       inputs:
