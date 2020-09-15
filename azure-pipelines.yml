@@ -36,28 +36,7 @@ stages:
         backendAzureRmStorageAccountName: statetfsandboxjohn01
         backendAzureRmContainerName: tfstatesandjohn01
         backendAzureRmKey: $(secrets.storageaccesskey)
-        arguments: '-out=./plan'
-    - task: CopyFiles@2
-      displayName: 'Copy terraform plan to artifacts'
-      inputs:
-        SourceFolder: ./plan
-        TargetFolder: '$(build.artifactstagingdirectory)'
-  - job: approve
-    pool: server
-    steps:
-    - task: ManualIntervention@8
-      displayName: 'Manual validation'
-      timeoutInMinutes: 60
-      continueOnError: false
-      inputs:
-        emailRecipients: '[503fc8f8-b927-6cee-a0d1-4a6e53ed5fab]'
-        instructions: 'Validate the plan output before apply'
-  - job: apply
-    dependsOn: approve
-    steps:
-    - task: Bash@3
-      inputs:
-        script: 'echo test'
+        arguments: '-out=$(build.artifactstagingdirectory)/plan'
 
 #- stage: apply
 #  displayName: 'Apply stage'
