@@ -20,7 +20,6 @@ stages:
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
       displayName: 'Terraform : azurerm'
       inputs:
-        command: init
         workingDirectory: '$(System.DefaultWorkingDirectory)/_Terraform-CI/drop/Terraform'
         backendServiceArm: 'PaaS-Sandbox-John (5ffae18c-eeb0-4706-8a03-0a823e6cccb5)'
         backendAzureRmResourceGroupName: 'rg-perm-common-sand-john-01'
