@@ -40,7 +40,12 @@ stages:
     - task: CopyFiles@2
       displayName: 'Copy terraform plan to artifact store'
       inputs:
-        Contents: '**'
+        Contents: tfplan
+        TargetFolder: '$(build.artifactstagingdirectory)'
+    - task: CopyFiles@2
+      displayName: 'Copy terraform plan to artifact store'
+      inputs:
+        Contents: '*.tf'
         TargetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
       displayName: 'Publish plan to artifacts'
