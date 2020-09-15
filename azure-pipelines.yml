@@ -25,7 +25,7 @@ stages:
         backendAzureRmResourceGroupName: 'rg-perm-common-sand-john-01'
         backendAzureRmStorageAccountName: statetfsandboxjohn01
         backendAzureRmContainerName: tfstatesandjohn01
-        backendAzureRmKey: $(secrets.sotrageaccesskey)
+        backendAzureRmKey: terraform.tfstate
     - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
       displayName: 'Terraform : azurerm'
       inputs:
@@ -36,7 +36,6 @@ stages:
         backendAzureRmStorageAccountName: statetfsandboxjohn01
         backendAzureRmContainerName: tfstatesandjohn01
         backendAzureRmKey: terraform.tfstate
-        arguments: -out="$(build.artifactstagingdirectory)/plan23iu4o23u"
 
 #- stage: apply
 #  displayName: 'Apply stage'
