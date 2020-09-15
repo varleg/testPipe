@@ -35,11 +35,11 @@ stages:
         backendAzureRmStorageAccountName: statetfsandboxjohn01
         backendAzureRmContainerName: tfstatesandjohn01
         backendAzureRmKey: $(secrets.storageaccesskey)
-        arguments: '-out=./plan'
+        arguments: '-out=Terraform/plan'
     - task: CopyFiles@2
       displayName: 'Copy terraform plan to artifacts'
       inputs:
-        SourceFolder: './'
+        SourceFolder: 'Terraform'
         Contents: 'plan'
         TargetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
