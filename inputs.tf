@@ -17,3 +17,23 @@ variable "subscription_id" {
     error_message = "The subscription_id does not follow the format ffffffff-ffff-ffff-ffff-ffffffffffff."
   }
 }
+variable "client_secret" {
+  type        = string
+  description = "Azure Service Principal Secret"
+  default     = null
+}
+
+variable "state_access_key" {
+  type        = string
+  description = "Azure Storage Access Key to the Storage account holding the remote backend states"
+  default     = null
+}
+variable "client_id" {
+  type        = string
+  description = "Azure Service Principal ID"
+
+  validation {
+    condition     = can(regex("^[a-f0-9-]{36}$", var.client_id))
+    error_message = "The client_id does not follow the format ffffffff-ffff-ffff-ffff-ffffffffffff."
+  }
+}
