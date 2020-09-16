@@ -19,5 +19,5 @@ jobs:
           terraform_version: 0.13.2
       - run: terraform init -backend-config='access_key=${{ secrets.SPTERRAFORMCICD_STATE_STORAGE_ACCOUNT }}' -backend-config=./backend.hcl $TARGET
       - run: terraform validate $TARGET
-      - run: terraform plan $TARGET -out=tfplan
+      - run: terraform plan $TARGET -out=./tfplan
       - run: ls ./tfplan
