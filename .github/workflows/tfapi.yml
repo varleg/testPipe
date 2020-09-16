@@ -15,7 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: hashicorp/setup-terraform@v1
-      - uses: bash
         with:
           terraform_version: 0.13.2
       - run: terraform init -backend-config='access_key=${{ secrets.SPTERRAFORMCICD_STATE_STORAGE_ACCOUNT }}' -backend-config=./backend.hcl $TARGET
