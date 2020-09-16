@@ -1,9 +1,7 @@
 name: "[dev] tftest"
 
 on:
-  push:
-    paths:
-    - "/**"
+  push
 
 jobs:
   "CI":
