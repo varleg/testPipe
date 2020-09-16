@@ -1,4 +1,7 @@
 terraform {
+  backend "azurerm" {
+    key = "terraform.tfstate"
+  }
   required_providers {
     provider "azurerm" {
       version = "=2.27.0"
