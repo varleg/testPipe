@@ -16,6 +16,6 @@ provider "azurerm" {
   features {}
 }
 resource "azurerm_resource_group" "main" {
-  name     = "rg-tf-sandjohn-05"
+  name     = "rg-tf-sandjohn-02"
   location = "westeurope"
 }

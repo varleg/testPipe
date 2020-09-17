@@ -80,11 +80,6 @@ variable "state_container_name" {
   default     = null
 }
 
-variable "github_token" {
-  type        = string
-  description = "Azure token to repo's for azure"
-}
-
 variable "subscription_name" {
   type        = string
   description = "Azure token to repo's for azure"
