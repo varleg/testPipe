@@ -16,11 +16,6 @@ variable "client_id" {
 variable "cliid" {
   type        = string
   description = "Azure Service Principal ID"
-
-  validation {
-    condition     = can(regex("^[a-f0-9-]{36}$", var.client_id))
-    error_message = "The client_id does not follow the format ffffffff-ffff-ffff-ffff-ffffffffffff."
-  }
 }
 
 variable "tenant_id" {
