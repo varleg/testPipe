@@ -20,4 +20,4 @@ jobs:
       - run: terraform init -backend-config='access_key=${{ secrets.SPTERRAFORMCICD_STATE_STORAGE_ACCOUNT }}' -backend-config=./backend.hcl $TARGET
       - run: terraform validate $TARGET
       - run: terraform plan -var-file=./global.tfvars -out=./tfplan $TARGET
-      - run: terraform apply -var-file=./global.tfvars "./tfplan"
+      - run: terraform apply "./tfplan"
