@@ -1,6 +1,10 @@
 terraform {
-  backend "azurerm" {
-    key = "terraform.tfstate"
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "neptune-software"
+    workspaces {
+      name = "testPipe"
+    }
   }
 }
 provider "azurerm" {
@@ -12,6 +16,6 @@ provider "azurerm" {
   features {}
 }
 resource "azurerm_resource_group" "main" {
-  name     = "rg-tf-sandjohn-01"
+  name     = "rg-tf-sandjohn-05"
   location = "westeurope"
 }
